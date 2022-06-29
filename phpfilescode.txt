@@ -1,0 +1,38 @@
+index file code-
+
+========================
+ <?php 
+if($_SERVER['REQUEST_METHOD'] == 'POST'){
+    $news_email= $_POST['news_email'];
+   
+//connecting to database
+$servername = "localhost";
+$username = "root";
+$password = "";
+$database = "competehub";
+
+$conn = mysqli_connect($servername, $username, $password, $database);
+if(!$conn){
+    die("connection failed!!!!!!!" . mysqli_connect_error());
+}
+else{
+    //inserting into table
+        $sql = "INSERT INTO `newsletter` (`news_email`, `date`) VALUES ('$news_email', current_timestamp())";
+        $result = mysqli_query($conn, $sql);
+
+        if($result){
+          echo '<div class="alert alert-success alert-dismissible fade show" role="alert">
+          <strong>Success</strong> Your email has been registered successfully.
+        </div>';
+        }
+        else{
+          echo '<div class="alert alert-danger alert-dismissible fade show" role="alert">
+          <strong>Error!</strong> Failed to register your email.
+          <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+        </div>'. mysqli_error($conn);
+        }
+      }
+    }
+      
+?>
+========================================================
